@@ -1,0 +1,141 @@
+Given a boolean matrix mat[][] consisting of N rows and M columns, initially filled with 0's(empty cells), an integer K and queries Q[][] of the type {X, Y}, the task is to replace mat[X][Y] = 1(non-empty cells) and count the number of connected non-empty cells from the given matrix.
+Input format:
+First line contains two integers to denote N and M.
+Second line contains N*M elements(array elements) which are separated by a space.
+Third line contains an integer K and next K line contains queries{X, Y}
+Output format:
+A line contains K integers to denote the query output which are separated by a space.
+Example:  
+Input:
+3 3
+4
+0 0
+1 1
+1 0
+1 2
+Output:
+1 2 1 1
+
+
+
+CODE-----------
+
+import java.util.*; 
+  
+class Main{ 
+ 
+static int ctr = 0; 
+
+static int find(int []parent, int x) 
+{ 
+    if (parent[x] == x) 
+        return x; 
+    parent[x] = find(parent, parent[x]); 
+    return parent[x]; 
+} 
+
+static void setUnion(int[] parent, 
+                     int[] rank, int x, int y) 
+{ 
+
+    int parentx = find(parent, x); 
+    int parenty = find(parent, y); 
+
+    if (parenty == parentx) 
+        return; 
+ 
+    ctr--; 
+
+    if (rank[parentx] < rank[parenty]) 
+    { 
+        parent[parentx] = parenty; 
+    } 
+  
+    else if (rank[parentx] > rank[parenty]) 
+    { 
+        parent[parenty] = parentx; 
+    } 
+    else 
+    { 
+
+        parent[parentx] = parenty; 
+  
+        rank[parenty]++; 
+    } 
+} 
+ 
+static int [] solve(int n, int m, 
+                    int [][]query) 
+{ 
+ 
+    int []result = new int[query.length]; 
+
+    int []parent = new int[n * m]; 
+
+    for(int i = 0; i < n * m; i++) 
+        parent[i] = i; 
+   
+    int []rank = new int[n * m]; 
+    Arrays.fill(rank, 1); 
+      
+    boolean []grid = new boolean[n * m]; 
+  
+    for(int i = 0; i < query.length; i++) 
+    { 
+        int x = query[i][0]; 
+        int y = query[i][1]; 
+  
+        if (grid[m * x + y] == true) 
+        { 
+            result[i] = ctr; 
+            continue; 
+        } 
+  
+        grid[m * x + y] = true; 
+   
+        ctr++; 
+  
+        if (x > 0 && grid[m * (x - 1) + y] == true) 
+            setUnion(parent, rank, 
+                     m * x + y, m * (x - 1) + y); 
+  
+        if (y > 0 && grid[m * (x) + y - 1] == true) 
+            setUnion(parent, rank, 
+                     m * x + y, m * (x) + y - 1); 
+  
+        if (x < n - 1 && grid[m * (x + 1) + y] == true) 
+            setUnion(parent, rank, 
+                     m * x + y, m * (x + 1) + y); 
+  
+        if (y < m - 1 && grid[m * (x) + y + 1] == true) 
+            setUnion(parent, rank, 
+                     m * x + y, m * (x) + y + 1); 
+
+        result[i] = ctr; 
+    } 
+    return result; 
+} 
+  
+public static void main(String[] args) 
+{ 
+  Scanner s=new Scanner(System.in);
+  int N=s.nextInt();
+  int M=s.nextInt();
+  int K=s.nextInt();
+  
+    int [][]query = new int[K][2];
+                     
+    for(int i=0;i<K;i++)
+    {
+        for(int j=0;j<2;j++)
+        {
+            query[i][j]=Integer.valueOf(s.next());
+        }
+    }
+    int[] result = solve(N, M, query); 
+  
+    for(int i = 0; i < K; i++) 
+        System.out.print(result[i] + " "); 
+} 
+} 
+  
