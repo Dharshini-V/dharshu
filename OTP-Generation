@@ -1,0 +1,97 @@
+OTP(One Time Password) Generator
+You need to generate an OTP from an array of numbers provided to you. The OTP is to be generated using a set of rules(steps) that can be understood by looking at the example given below.
+Example1
+input1 array={123,567,981,2367}
+solution: steps to create the OTP are as below
+The OTP must comprise of TWO sets of numbers generated from the input array
+OTP=[Set1][Set2]
+Set1: The largest 3 digit number that can be formed from each element in the input1 array.
+In the given input array, the 3 digit numbers that can be formed are: 123,567,981,236,367
+(Note that, 236 and 367 can be formed from 2367)
+From this set of 3-digit numbers, the largest 3-digit number is 981.
+So, set=981.
+Set2: Sum of the smallest digit and the largest digit in the input1 array. The smallest digit in the array is 1 and the largest digit in the array is 9.
+The sum of these is 1+9=10
+So, set2=10.
+The numbers generated in set1 and set2 should be arranged next to each other to form the required OTP
+i.e.OTP=98110
+Note:
+1. The number of elements in the input1 array is provided as input2.
+2. For creating set1, if there are no 3-digit numbers in input1 array, then set1=0.
+3. For creating Set2, if the smallest digit and the largest digit in input1 set are the same then set2=0.
+Input format:
+First line contains input2(size of the array) and second line contains input1(array elements).
+Output format:
+A line contains OTP.
+
+
+
+
+CODE:
+
+
+public class OTP
+{
+	public static void main(String[] args) {
+	//	System.out.println("Hello World");
+	
+//	Scanner s=new Scanner(System.in);
+	int n=4;
+	int arr[]={123,345,234,2967};
+	String str[]=new String[n];
+	for(int i=0;i<n;i++)
+	{
+	    str[i]=String.valueOf(arr[i]);
+	}
+	int largest=0;
+	for(int i=0;i<str.length;i++)
+	{
+	    String ss=str[i].toString();
+	    if(ss.length()==3)
+	    {
+	        int nn=Integer.parseInt(ss);
+	        if(largest<nn)
+	        {
+	            largest=nn;
+	        }
+	    }
+	    if(ss.length()==4)
+	    {
+	        int mm=Integer.parseInt(ss);
+	        int l1,l2;
+	        l1=(mm/10);
+	        l2=mm%1000;
+	        if(largest<l1)
+	        {
+	            largest=l1;
+	        }
+	        if(largest<l2)
+	        {
+	            largest=l2;
+	        }
+	    }
+	}
+	int larg=0,smal=1;
+	for(int i=0;i<arr.length;i++)
+	{ 
+	    int r;
+	    while(arr[i]!=0)
+	    {
+	        r=arr[i]%10;
+	        arr[i]/=10;
+	    if(r>larg)
+	    {
+	        larg=r;
+	    }
+	    if(r<smal)
+	    {
+	        smal=r;
+	    }
+	    }
+	}
+	System.out.print(largest);
+	System.out.print(larg+smal);
+//	System.out.println(n/10);
+	//System.out.println(n%1000);
+	}
+}
