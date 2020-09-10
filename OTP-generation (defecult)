@@ -1,0 +1,117 @@
+OTP(One Time Password) Generator
+You need to generate an OTP from an array of numbers provided to you. The OTP is to be generated using a set of rules(steps) that can be understood by looking at the example given below.
+Example1
+input1 array={123,567,921,2369}
+solution: steps to create the OTP are as below
+The OTP must comprise of TWO sets of numbers generated from the input array
+OTP=[Set1][Set2]
+Set1: Form the largest 3 digit number from each element in the input1 array.
+In the given input array, the largest 3 digit numbers that can be formed are: 321,765,921,963
+From this set of 3-digit numbers, the largest 3-digit number is 963.
+So, set=963.
+Set2: Difference of the smallest digit and the largest digit in the input1 array(take this difference as positive number). The smallest digit in the array is 1 and the largest digit in the array is 9.
+The difference of these is =8
+In above:
+If the difference is odd, then add 1
+If the difference is even, then add -1
+So, set2=7.
+The numbers generated in set1 and set2 should be arranged next to each other to form the required OTP
+i.e.OTP=9637
+Note:
+1. The number of elements in the input1 array is provided as input2.
+2. For creating set1, if there are no largest 3-digit numbers can not be generated in input1 array, then set1=0.
+3. For creating Set2, if the smallest digit and the largest digit in input1 set are the same then set2=0.
+Input format:
+First line contains input2(size of the array) and second line contains input1(array elements).
+Output format:
+A line contains OTP.
+
+
+
+
+CODE:
+
+import java.util.*;
+public class Main
+{
+public static void main (String[] args) 
+    {
+        Scanner s=new Scanner(System.in);
+      //int n=4;
+      //int arr[]={123,567,921,2369};
+      int n=s.nextInt();
+      int arr[]=new int[n];
+      for(int i=0;i<n;i++)
+      {
+          arr[i]=s.nextInt();
+      }
+      int largest=0;
+      int larg=0,smal=1;
+     
+      ArrayList<Integer> ar=new ArrayList<Integer>();
+      for(int i=0;i<n;i++)
+      {
+      while(arr[i]!=0)
+      {
+          int r=arr[i]%10;
+          arr[i]/=10;
+          ar.add(r);
+          if(larg<r)
+              {
+                  larg=r;
+              }
+              if(smal>r)
+              {
+                  smal=r;
+              }
+      }
+      
+      //System.out.println(r);
+      Comparator c = Collections.reverseOrder();
+      Collections.sort(ar,c);
+      //System.out.println(ar);
+      String str[]=new String[ar.size()];
+      String ss="";
+      for(int j=0;j<ar.size();j++)
+      {
+          str[j]=(ar.get(j)).toString();
+          //System.out.print(str[j]);
+          ss+=str[j];
+      }
+      //System.out.println(ss);
+      //int largest=0;
+      if(ss.length()==3)
+      {
+          int nn=Integer.parseInt(ss);
+          if(largest<nn)
+          {
+              largest=nn;
+          }
+      }
+      if(ss.length()==4)
+      {
+          int mm=Integer.parseInt(ss);
+          if(largest<mm/10)
+          {
+              largest=mm/10;
+          }
+      }
+      //System.out.print("\n");
+      ar.removeAll(ar);
+      }
+      System.out.print(largest);
+      int diff=Math.abs(smal-larg);
+     //System.out.println(diff);
+      if(diff%2==0)
+      {
+         int dif=diff-1;
+          System.out.print(dif);
+      }
+      if(diff%2!=0)
+      {
+          int dif=diff+1;
+          System.out.print(dif);
+      }
+      //System.out.print(diff);
+    }
+}
