@@ -1,0 +1,89 @@
+
+Wipro plans to publish a daily online newsletter on its internal website channelW, and you have been contacted to contribute to the JUMBLE game on the newsletters fun page. The JUMBLE game presents a sentence with each word jumbled, and the readers will be expected to unjumble them. Your task is to provide the sentence in jumbled format. i.e.each word in the sentence jumbled in some fashion.
+Because your task is to provide a jumbled sentence every day, you decide to write a program that can take any proper sentence as input and jumble the words in that sentence to produce a jumbled sentence.
+After some thought you decide below two ways of jumbling a word
+Method1:(forward, backward): In the word reading from left to right(forward), pick every odd letter starting from the first letter, and then reading the word from right to left(backward) pick every even letter starting from the last even letter in the word.
+For example:
+If the word is "PROJECT", the jumbled word will be "POETCJR"
+Similarly,
+if the word is "LEARNING', THE JUMBLED WORD WILL BE "LANNGIRE".
+so, if the sentence is "PROJECT BASED LEARNING',the sentence with jumbled words should be "POETCJR BSDEA LANNGIRE"
+Method2(forward,forward):In the word reading from left to right(forward), pick every odd letter starting from the first letter and then reading the word again from left to right(forward), pick every even letter starting from the second letter in the word.
+For example:
+If the word is "PROJECT", the jumbled word will be "POETRJC",
+similarly,
+if the word is "LEARNING", the jumbled word will be "LANNERIG".
+so, if the sentence is "PROJECT BASED LEARNING',the sentence with jumbled words should be "POETRJC BSDAE LANNERIG"
+input1: which represents the string(proper sentence) containing one or more words that are to be jumbled.
+input2: which represents the type of jumbling method(1 or 2).
+Example1:
+Input:
+ROJECT BASED LEARNING
+1
+Output:
+POETCJR BSDEA LANNGIRE
+Example2:
+Input:
+ROJECT BASED LEARNING
+2
+Output:
+POETRJC BSDAE LANNERIG
+
+
+--------------------------------------------------------------------------------------
+
+public class Main
+{
+	public static void main(String[] args) {
+		//System.out.println("Hello World");
+		String str="PROJECT BASED LEARNING";
+		int n=1;
+		String st[]=str.split(" ");
+		if(n==1)
+		{
+		    for(int i=0;i<st.length;i++)
+		    {
+		        String ss=st[i];
+		        for(int j=0;j<=ss.length()-1;j++)
+		        {
+		            if(j%2==0)
+		            {
+		                System.out.print(ss.charAt(j));
+		            }
+		            
+		        }
+		        for(int k=ss.length()-1;k>=0;k--)
+		        {
+		            if(k%2!=0)
+		            {
+		                System.out.print(ss.charAt(k));
+		            }
+		        }
+		        System.out.print(" ");
+		    }
+		}
+		if(n==2)
+		{
+		    for(int i=0;i<st.length;i++)
+		    {
+		        String ss=st[i];
+		        for(int j=0;j<=ss.length()-1;j++)
+		        {
+		            if(j%2==0)
+		            {
+		                System.out.print(ss.charAt(j));
+		            }
+		            
+		        }
+		        for(int k=0;k>=ss.length()-1;k++)
+		        {
+		            if(k%2!=0)
+		            {
+		                System.out.print(ss.charAt(k));
+		            }
+		        }
+		        System.out.print(" ");
+		    }
+		}
+	}
+}
