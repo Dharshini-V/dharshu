@@ -1,0 +1,80 @@
+Single-digit "Reduced Subtracted Form"
+Given a number, you are expected to find its single-digit "Reduced Subtracted Form(RSF)".
+The "Reduced Subtracted Form(RSF)" of a number can be found by concatenating the difference between its adjacent digits.
+To find the single-digit "Reduced Subtracted Form(RSF)", we need to continue this process till the resultant RSF is not a single-digit number.
+Example:
+Input:
+6928
+Output:
+3
+
+Explanation:
+Its RSF can be found by concatenating the difference between (6 and 9), (9 and 2) and (2 and 8) as shown below
+Difference between 6 and 9 is 3
+Difference between 9 and 2 is 7
+Difference between 2 and 8 is 6
+So, the RSF of 6928=376
+The result 376 is not a single-digit number, so we must continue finding its RSF.
+Difference between 3 and 7 is 4
+Difference between 7 and 6 is 1
+So, the RSF of 376=41
+The result 41 is not a single-digit number, so we must continue finding its RSF.
+Difference between 4 and 1 is 3
+The resultant RSF(3) is a single-digit number, so we have reached the single-digit RSF.
+Therefore, the single-digit RSF of 6928=3
+Note1: Input will always be >=10
+Note2: Note that while concatenating the differences, we are expected to use the absolute values(non-negative)
+Note3: The input values for all test cases in this program have been designed such that their single-digit RSF will definitely result in a single-digit number.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+class GFG { 
+  
+   
+    static int RSF(int n) 
+    { 
+        while (n >= 10) { 
+  
+            int x = n; 
+            int l = 0; 
+  
+            while (n > 0) { 
+                n = n / 10; 
+                l++; 
+            } 
+  
+           
+            int a[] = new int[l]; 
+  
+           
+            int i = l - 1; 
+  
+            while (x > 0) { 
+  
+               
+                a[i] = x % 10; 
+                x = x / 10; 
+                i--; 
+            } 
+  
+            for (int j = 0; j < l - 1; j++) { 
+  
+                
+                n = n * 10 + Math.abs(a[j] - a[j + 1]); 
+            } 
+        } 
+  
+        return n; 
+    } 
+  
+   
+    public static void main(String[] arg) 
+    { 
+        int n = 6972; 
+  
+       
+        int ans = RSF(n); 
+  
+       
+        System.out.println(ans); 
+    } 
+} 
