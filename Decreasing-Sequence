@@ -1,0 +1,86 @@
+Given an integer array, find the number of decreasing sequences in the array and the length of its longest decreasing sequence.
+Your are expected to complete the logic within the given function where,
+Input1 represents the integer array and.
+Input2 represents the number of elements in the integer array
+The function should set the output1 variable to the number of decreasing sequences in the array, and set the output2 variable to the length of the longest decreasing sequence in the array.
+Example1:
+Input1={11,3,1,4,7,7,12,2,3,7}
+Input2=10
+Output1 should be 2
+Output2 should be 3
+Explanation:
+In the given array input1, the decreasing sequences are "11,3,1" and "12,2", i.e. there are two decreasing sequences in the array, and so output1 is assigned 2. The first sequence i.e. "11,3,1" is the longer one containing three items, when compared to the second sequence "12,2" which contains 2 items. SO, the length of the longest decreasing sequence output2=3.
+Example2:
+Input1={9}
+Input2=1
+Output1 should be 0
+Output2 should be 0
+
+Input format:
+
+First line contains size of the array(Input2) and second line contains array elements(Input1)
+
+Output format:
+
+First line contains Output1 and second line contains Output2.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+class Main
+{
+
+ public static int output1;
+ public static int output2;
+ public static void Result(int out1,int out2)
+ {
+  output1=out1;
+  output2=out2;
+  System.out.println(output1);
+System.out.println(output2);
+ }
+public static void decreasingSeq(int[] input1,int input2)
+{
+ int c1=0,c2=0,max=0;
+for(int i=0;i<input2-1;i++)
+        {
+            if(input1[i]>input1[i+1])
+            {
+                c1++;
+            }
+            if((input1[i]<input1[i+1] && c1!=0) || ((i==input2-2) && c1!=0))
+            {
+                if(max<c1)
+                {
+                    max=c1;
+                }
+                c2++;
+                c1=0;
+            }
+        }
+        max=max+1;
+        if(c2==0)
+        {
+            max=0;
+        }
+        if(input2==0)
+        {
+            max=0;
+            c2=0;
+        }
+      
+       Result(c2,max);
+      
+}
+
+ public static void main(String args[])
+        {
+            int n=10;
+            int arr[]={11,3,1,4,7,7,12,2,3,7};
+        
+        decreasingSeq(arr,n);
+       
+        }
+
+}
+
