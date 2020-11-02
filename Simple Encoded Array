@@ -1,0 +1,60 @@
+Simple Encoded Array:  Maya has stored few confidential numbers in an array(array of int).To ensure that others do not find the numbers easily,she has applied a simple encoding.
+Encoding Used: Each array element has been substituted with a value that is the sum of its original value and its succeeding element’s value.
+i.e. arr[i]=origial value of arr[i]+original value of arr[i+1];
+e.g. value in arr[0]=original value of arr[0]+original value of arr[1]
+Also note that the value of last element i.e. arr[last index] remains unchanged.
+For example,
+If the encoded array is {7,6,8,16,12,3}
+The original array should have been {2,5,1,7,9,3}
+Provided the encoded array, you are expected to find the-
+a. First number (value of index 0) in the original array
+b. Sum of all numbers in the original array
+Inputs:
+First line contains input1  represents the size of the array input1[];
+Second line contains input2  represents the encode array
+
+The program is expected to-
+·         Find the value of the first number of the original array and print it and
+·         Find the sum of all numbers in original array and print it
+Note that the output1 and output2 should be returned as –
+Assumption: The array elements can be positive and/or negative numbers
+Example 1:
+If the encoded array is {7,6,8,16,12,3}
+The Original array should have been {2,5,1,7,9,3}
+So, First number in original array=2
+Sum of all numbers in original array=27
+Example 2:
+If the encoded array is {-2,-7,-12,-15}
+The Original array should have been {8,-10,3,-15}
+So, First number in original array=8
+Sum of all numbers in original array=-14
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+import java.io.*;
+import java.util.*;
+class Main
+{
+public static void main (String[] args) {
+    /* code */
+    Scanner s=new Scanner(System.in);
+    int n=s.nextInt();
+    int ar[]=new int[n];
+    for(int i=0;i<n;i++)
+    {
+        ar[i]=s.nextInt();
+    }
+    int m=ar[n-2]-ar[n-1];
+    int sum=ar[n-1]+m;
+    int ss=0;
+    for(int i=n-3;i>=0;i--)
+    {
+        ss=ar[i]-m;
+        m=ss;
+        sum+=ss;
+    }
+    System.out.println(ss);
+    System.out.println(sum);
+}
+}
